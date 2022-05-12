@@ -59,10 +59,12 @@ jobs:
     needs: build_and_push_to_docker_hub
     steps:
     - name: executing remote ssh commands to deploy
-      uses: shimataro/ssh-key-action@v2
+      uses: appleboy/ssh-action@master
       with:
-        known_hosts: ${{ secrets.HOST }}
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USER }}
         key: ${{ secrets.SSH_KEY }}
+        passphrase: 
         script: |
           # Выполняет pull образа с DockerHub
           sudo docker pull alkh0304/infra
